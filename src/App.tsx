@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import "./App.css";
 import CategoryDistributionChart from "./components/CategoryDistributionChart";
-import { response } from "./aiDataResponse/index";
-import { setCategoryData } from "./redux/features/aiDataSlice";
+import { setCategoryData, setDayWiseData, setWeekWiseData } from "./redux/features/aiDataSlice";
 import { useAppDispatch } from "./redux/hooks";
+import fetchCategoryDataResponse from "./redux/features/fetchCategoryDataResponse";
+import fetchDayWiseResponseTimes from "./redux/features/fetchDayWiseResponseTimes";
+import ResponseTimesChart from "./components/ResponseTimesChart";
+import fetchWeekWiseResponseTimes from "./redux/features/fetchWeekWiseResponseTimes";
 
 function App() {
-  // const [categoryData, setCategoryData] = useState<{ category: string; queries: number }[]>([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     try {
-      const categoryData = Object.entries(response.category_distribution).map(([category, queries]) => ({
-        category,
-        queries,
-      }));
-      dispatch(setCategoryData(categoryData));
+      dispatch(setCategoryData(fetchCategoryDataResponse()));
+      dispatch(setDayWiseData(fetchDayWiseResponseTimes()));
+      dispatch(setWeekWiseData(fetchWeekWiseResponseTimes()));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -24,6 +24,7 @@ function App() {
   return (
     <div className="App">
       <CategoryDistributionChart />
+      <ResponseTimesChart />
     </div>
   );
 }
