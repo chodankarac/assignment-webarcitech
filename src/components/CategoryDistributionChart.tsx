@@ -1,14 +1,8 @@
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
+import { useAppSelector } from "../redux/hooks";
 
-type CategoryData = {
-  category: string;
-  queries: number;
-};
-
-type CategoryDistributionChartProps = {
-  data: CategoryData[];
-};
-const CategoryDistributionChart = ({ data }: CategoryDistributionChartProps) => {
+const CategoryDistributionChart = () => {
+  const data = useAppSelector((state) => state.aiData.categoryData);
   return (
     <>
       <BarChart
