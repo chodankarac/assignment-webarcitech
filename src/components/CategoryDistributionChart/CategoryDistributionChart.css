@@ -1,0 +1,10 @@
+.ChartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.ChartTitle {
+  margin-bottom: 20px;
+}

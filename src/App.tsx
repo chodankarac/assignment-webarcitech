@@ -3,10 +3,10 @@ import "./App.css";
 import CategoryDistributionChart from "./components/CategoryDistributionChart";
 import { setCategoryData, setDayWiseData, setWeekWiseData } from "./redux/features/aiDataSlice";
 import { useAppDispatch } from "./redux/hooks";
-import fetchCategoryDataResponse from "./redux/features/fetchCategoryDataResponse";
-import fetchDayWiseResponseTimes from "./redux/features/fetchDayWiseResponseTimes";
+import fetchCategoryDataResponse from "./components/CategoryDistributionChart/fetchCategoryDataResponse";
+import fetchDayWiseResponseTimes from "./components/ResponseTimesChart/fetchDayWiseResponseTimes";
 import ResponseTimesChart from "./components/ResponseTimesChart";
-import fetchWeekWiseResponseTimes from "./redux/features/fetchWeekWiseResponseTimes";
+import fetchWeekWiseResponseTimes from "./components/ResponseTimesChart/fetchWeekWiseResponseTimes";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,8 +23,10 @@ function App() {
 
   return (
     <div className="App">
-      <CategoryDistributionChart />
-      <ResponseTimesChart />
+      <div className="ChartContainer">
+        <CategoryDistributionChart />
+        <ResponseTimesChart />
+      </div>
     </div>
   );
 }

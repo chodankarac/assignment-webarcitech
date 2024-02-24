@@ -1,13 +1,15 @@
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
+import "./CategoryDistributionChart.css";
 
 const CategoryDistributionChart = () => {
   const data = useAppSelector((state) => state.aiData.categoryData);
   return (
-    <>
+    <div className="ChartContainer">
+      <h1 className="ChartTitle">Category Distribution</h1>
       <BarChart
         width={450}
-        height={400}
+        height={300}
         data={data}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         barSize={20}
@@ -19,8 +21,7 @@ const CategoryDistributionChart = () => {
         <Legend />
         <Bar dataKey="queries" fill="#8884d8" />
       </BarChart>
-      <h1>Category Distribution Chart</h1>
-    </>
+    </div>
   );
 };
 
