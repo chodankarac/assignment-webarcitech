@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import "./App.css";
 import CategoryDistributionChart from "./components/CategoryDistributionChart";
 import { setCategoryData, setDayWiseData, setWeekWiseData } from "./redux/features/aiDataSlice";
@@ -11,15 +11,19 @@ import fetchWeekWiseResponseTimes from "./components/ResponseTimesChart/fetchWee
 function App() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
     try {
-      dispatch(setCategoryData(fetchCategoryDataResponse()));
-      dispatch(setDayWiseData(fetchDayWiseResponseTimes()));
-      dispatch(setWeekWiseData(fetchWeekWiseResponseTimes()));
+      dispatch(setCategoryData(await fetchCategoryDataResponse()));
+      dispatch(setDayWiseData(await fetchDayWiseResponseTimes()));
+      dispatch(setWeekWiseData(await fetchWeekWiseResponseTimes()));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <div className="App">

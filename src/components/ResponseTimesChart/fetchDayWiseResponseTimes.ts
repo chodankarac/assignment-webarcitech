@@ -1,8 +1,9 @@
-import aiData from "../../aiDataResponse/ai-data.json";
+import axios from "axios";
 
-const fetchDayWiseResponseTimes = () => {
-  const dayWiseData = aiData.response_times.day_wise;
-  const dayWiseResponseTimes = dayWiseData.map((dayData) => ({
+const fetchDayWiseResponseTimes = async () => {
+  const response = await axios.get("/ai-data.json");
+  const dayWiseData = response.data.response_times.day_wise;
+  const dayWiseResponseTimes = dayWiseData.map((dayData: { date: string; average_time: string }) => ({
     date: dayData.date,
     average_time: dayData.average_time,
   }));

@@ -1,7 +1,17 @@
-import aiData from "../../aiDataResponse/ai-data.json";
+import axios from "axios";
 
-const fetchCategoryDataResponse = () => {
-  const categoryData = Object.entries(aiData.category_distribution).map(([category, queries]) => ({
+type CategoryData = {
+  category: string;
+  queries: number;
+};
+
+type CategoryDataResponse = {
+  category_distribution: Record<string, number>;
+};
+
+const fetchCategoryDataResponse = async (): Promise<CategoryData[]> => {
+  const response = await axios.get<CategoryDataResponse>("/ai-data.json");
+  const categoryData = Object.entries(response.data.category_distribution).map(([category, queries]) => ({
     category,
     queries,
   }));
